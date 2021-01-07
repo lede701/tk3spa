@@ -1,6 +1,6 @@
-# Tk3spa
+# TimeKeeper 3.0
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+This project is the exploration of developing our current system into a single page app using Angular.
 
 ## Development server
 
