@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../models/user.model';
 
 @Component({
   selector: 'app-name-list',
@@ -7,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NameListComponent implements OnInit {
 
-  names: string[];
+  names: User[];
 
   constructor() {
-    this.names = ["Leland", "Natalie", "Evan", "Trisrtan"];
+    this.names = [];
+    this.names.push(new User('Leland', 'Ede', 'lede', 'testing1234', 5));
+    this.names.push(new User('Natalie', 'Ede', 'nede', 'testing1234', 5));
+    this.names.push(new User('Evan', 'Schricker', 'eschricker', 'testing1234', 5));
+    this.names.push(new User('Tristan', 'Ede', 'tede', 'testing1234', 5));
   }
 
   ngOnInit(): void {
