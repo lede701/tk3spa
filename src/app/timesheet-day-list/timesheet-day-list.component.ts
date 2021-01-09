@@ -4,7 +4,7 @@ import { Timesheet } from '../models/sheet.model';
 @Component({
   selector: 'app-timesheet-day-list',
   templateUrl: './timesheet-day-list.component.html',
-  styleUrls: ['./timesheet-day-list.component.css']
+  styleUrls: ['./timesheet-day-list.component.less']
 })
 export class TimesheetDayListComponent implements OnInit {
 

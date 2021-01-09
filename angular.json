@@ -120,5 +120,10 @@
       }
     }
   },
-  "defaultProject": "tk3spa"
+  "defaultProject": "tk3spa",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "less"
+    }
+  }
 }

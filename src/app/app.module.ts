@@ -12,6 +12,7 @@ import { TimesheetLeaveComponent } from './timesheet-leave/timesheet-leave.compo
 import { TimesheetLunchComponent } from './timesheet-lunch/timesheet-lunch.component';
 import { TimesheetSumsComponent } from './timesheet-sums/timesheet-sums.component';
 import { TimesheetSignaturesComponent } from './timesheet-signatures/timesheet-signatures.component';
+import { TimesheetHeaderComponent } from './timesheet-header/timesheet-header.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { TimesheetSignaturesComponent } from './timesheet-signatures/timesheet-s
     TimesheetLeaveComponent,
     TimesheetLunchComponent,
     TimesheetSumsComponent,
-    TimesheetSignaturesComponent
+    TimesheetSignaturesComponent,
+    TimesheetHeaderComponent
   ],
   imports: [
     BrowserModule,

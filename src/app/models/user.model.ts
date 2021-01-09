@@ -1,20 +1,43 @@
 export class User {
+
+  id: number;
+  fkid: number;
+  workScheduleId: number;
+  workHoursPerWeek: number;
   firstName: string;
+  middleName: string;
   lastName: string;
+  positionDescription: string;
+  employeeStatus: number;
+  startDate: Date;
+  endDate: Date;
+  eMailAddr: string;
   username: string;
   password: string;
-  rank: number;
+  created: Date;
+  createdBy: number;
+  modified: Date;
+  modifiedBy: number;
+  status: number;
 
-  constructor(firstName: string, lastName: string, username: string, password: string, rank?: number) {
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.username = username;
-    this.password = password;
-    this.rank = rank || 0;
+  constructor(params) {
+    if (params !== undefined) {
+      for (let key in params) {
+        this[key] = params[key];
+      }
+    }
   }
 
-  fullName(): string {
+  getFullName(): string {
     return this.firstName + " " + this.lastName;
+  }
+
+  getLastFirstName(): string {
+    return `${this.lastName}, ${this.firstName}`;
+  }
+
+  getTitle(): string {
+    return this.positionDescription;
   }
 
 }

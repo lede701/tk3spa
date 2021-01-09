@@ -12,10 +12,12 @@ export class NameListComponent implements OnInit {
 
   constructor() {
     this.names = [];
+    /*
     this.names.push(new User('Leland', 'Ede', 'lede', 'testing1234', 5));
     this.names.push(new User('Natalie', 'Ede', 'nede', 'testing1234', 5));
     this.names.push(new User('Evan', 'Schricker', 'eschricker', 'testing1234', 5));
     this.names.push(new User('Tristan', 'Ede', 'tede', 'testing1234', 5));
+    */
   }
 
   ngOnInit(): void {

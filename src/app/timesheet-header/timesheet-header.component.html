@@ -1,0 +1,18 @@
+<div class="timesheet-info">
+  <div class="grid-x">
+    <div class="cell medium-3">
+      <span class="timesheet-label">Name: </span>{{getLastFirstName()}}
+    </div>
+    <div class="cell medium-4">
+      <span class="timesheet-label">Title: </span>{{getTitle()}}
+    </div>
+    <div class="cell medium-3">
+      <span class="timesheet-label">Month: </span>{{getFullMonth()}}
+    </div>
+    <div class="cell medium-2">
+      {{getEmployeeStatus()}}
+    </div>
+  </div>
+  <app-timesheet-day-list [timesheet]="timesheet"></app-timesheet-day-list>
+</div>
+

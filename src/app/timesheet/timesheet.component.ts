@@ -4,7 +4,7 @@ import { Timesheet } from "../models/sheet.model";
 @Component({
   selector: 'app-timesheet',
   templateUrl: './timesheet.component.html',
-  styleUrls: ['./timesheet.component.css']
+  styleUrls: ['./timesheet.component.less']
 })
 export class TimesheetComponent implements OnInit {
 
