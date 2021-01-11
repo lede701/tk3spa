@@ -27,9 +27,15 @@ export class TimesheetHeaderComponent implements OnInit {
     return this.timesheet.getFullMonth();
   }
 
-  getEmployeeStatus(): string {
-    let status = "Exempt";
+  getTimesheetHours(): number {
+    return this.timesheet.getTimesheetHours();
+  }
 
-    return status;
+  getEmployeeStatus(): string {
+    return this.timesheet.getEmployeeStatus();
+  }
+
+  getTimesheetYear(): string {
+    return this.timesheet.getTimesheetYear();
   }
 }

@@ -17,30 +17,30 @@ export class TimesheetDayListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Create start day of time sheet
-    let day = new Date(`${this.timesheet.startDate.getDate()}/${this.timesheet.startDate.getMonth() + 1}/${this.timesheet.startDate.getFullYear()} 10:00 AM`);
-    // Create a break point for runaway loops
-    let runLoop = 0;
-    let runAwayThreshold = 50;
-    // Put start date into the list of days
-    this.Days.push(new Date(day));
-    // Create list of days between start and end dates
-    while (day.valueOf() < this.timesheet.endDate.valueOf()) {
-      // Add one day to the day date
-      day.setDate(day.getDate() + 1);
-      // Puch next day in list to the days array
-      this.Days.push(new Date(day));
-      // Check if loop is no running away
-      if (runLoop++ > runAwayThreshold) {
-        // Report there was an error in build list of days for this time sheet!
-        console.error("app-timesheet-day-list day loop has exceeded its limit!")
-        break;
-      }
-    }
+    this.Days = this.timesheet.getDaysData();
   }
 
   getMonth(): string {
     return this.timesheet.getMonth();
+  }
+
+  getDay(day: Date): string {
+    let dayLookup: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    return dayLookup[day.getDay()];
+  }
+
+  getDayClass(day: Date): string {
+    let css = 'day-weekday';
+    if (day.getDay() == 0 || day.getDay() == 6) {
+      css = 'day-weekend';
+    }
+
+    return css;
+  }
+
+  onClickDay(day: Date) {
+    console.log(day);
+    return false;
   }
 
 }

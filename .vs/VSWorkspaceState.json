@@ -1,12 +1,8 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src",
-    "\\src\\app",
-    "\\src\\app\\name-list",
-    "\\src\\app\\timesheet-day-list",
-    "\\src\\app\\timesheet-grant"
+    "\\src\\app\\timesheet-header"
   ],
-  "SelectedNode": "\\src\\app\\name-list\\name-list.component.ts",
+  "SelectedNode": "\\src",
   "PreviewInSolutionExplorer": false
 }

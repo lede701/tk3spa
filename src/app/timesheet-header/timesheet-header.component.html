@@ -13,6 +13,14 @@
       {{getEmployeeStatus()}}
     </div>
   </div>
+  <div class="grid-x">
+    <div class="cell medium-3">
+      <span class="timesheet-label">Hours: </span>{{getTimesheetHours()}}
+    </div>
+    <div class="cell medium-4">
+      <span class="timesheet-label">Year: </span>{{getTimesheetYear()}}
+    </div>
+  </div>
   <app-timesheet-day-list [timesheet]="timesheet"></app-timesheet-day-list>
 </div>
 
