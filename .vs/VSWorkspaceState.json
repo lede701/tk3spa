@@ -1,8 +1,12 @@
 {
   "ExpandedNodes": [
     "",
-    "\\src\\app\\timesheet-header"
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\models",
+    "\\src\\app\\timesheet-day-list",
+    "\\src\\app\\timesheet-grant"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\app\\timesheet-day-list\\timesheet-day-list.component.html",
   "PreviewInSolutionExplorer": false
 }

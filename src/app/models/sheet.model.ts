@@ -1,5 +1,5 @@
 import { User } from './user.model';
-import { TimeDetails } from './timedetails.model';
+import { GrantDetails } from './grantdetails.model';
 
 export class Timesheet {
   id: string;
@@ -20,7 +20,7 @@ export class Timesheet {
   employeeSignature: string;
   supervisorSignature: string;
 
-  timeDetails: TimeDetails[];
+  grantDetails: GrantDetails[];
   user: User;
   daysData: Date[];
   timesheetHours: number = 0;
@@ -50,6 +50,8 @@ export class Timesheet {
           this.tEmployeeStatus = 2;
           this.loadDaysData();
           this.loadUser();
+          this.grantDetails = [];
+          this.grantDetails.push(new GrantDetails({grantNum: '12021', projCode: '00' }));
         }
         break;
     }
@@ -59,8 +61,8 @@ export class Timesheet {
   loadDaysData() {
     this.daysData = [];
 
-    let td = new TimeDetails();
-    this.timeDetails = td.loadSheet(this);
+    //let td = new TimeDetails();
+    //this.timeDetails = td.loadSheet(this);
 
     // Create start day of time sheet
     let day = new Date(`${this.startDate.getDate()}/${this.startDate.getMonth() + 1}/${this.startDate.getFullYear()} 10:00 AM`);
@@ -164,5 +166,9 @@ export class Timesheet {
 
   getTimesheetHours(): number {
     return this.timesheetHours;
+  }
+
+  getGrantList(): GrantDetails[] {
+    return this.grantDetails;
   }
 }
