@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Timesheet } from "../models/sheet.model";
 import { GrantDetails } from "../models/grantdetails.model";
+import { TimeDetails } from '../models/timedetails.model';
 
 @Component({
   selector: 'app-timesheet-grant',
@@ -16,8 +17,27 @@ export class TimesheetGrantComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getDaysList(): Date[] {
+    return this.timesheet.getDaysList();
+  }
+
   getGrantList(): GrantDetails[] {
     return this.timesheet.getGrantList();
   }
 
+  getDayDetails(grant: GrantDetails, day: Date): TimeDetails {
+    return grant.getDayDetails(day);
+  }
+
+  formatTime(time): string {
+    // Make sure there is something to put in the day slot
+    let ftime = "&nbsp;";
+    // Check if the time is valid
+    if (time !== undefined) {
+      ftime = time;
+    }
+
+    // Return trhe formatted string
+    return ftime;
+  }
 }

@@ -1,4 +1,8 @@
 <div class="cell-day-list">
-  <div *ngFor="let day of Days" class="cell-day {{getDayClass(day)}}" (click)="onClickDay(day);">{{getDay(day)}}<br />{{day.getDate()}}</div>
+  <div class="cell-day cell-day-2"></div>
+  <div *ngFor="let day of getDayList()" class="cell-day {{getDayClass(day)}}" (click)="onClickDay(day);">
+    {{getDay(day)}}<br />
+    {{day.getDate()}}
+  </div>
 </div>
 

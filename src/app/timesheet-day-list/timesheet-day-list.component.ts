@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Timesheet } from '../models/sheet.model';
+import { TimeDetails } from '../models/timedetails.model';
 
 @Component({
   selector: 'app-timesheet-day-list',
@@ -10,14 +11,10 @@ export class TimesheetDayListComponent implements OnInit {
 
   @Input() timesheet: Timesheet;
 
-  Days: Array<Date>;
-
   constructor() {
-    this.Days = [];
   }
 
   ngOnInit(): void {
-    this.Days = this.timesheet.getDaysData();
   }
 
   getMonth(): string {
@@ -27,6 +24,10 @@ export class TimesheetDayListComponent implements OnInit {
   getDay(day: Date): string {
     let dayLookup: string[] = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     return dayLookup[day.getDay()];
+  }
+
+  getDayList(): Date[] {
+    return this.timesheet.getDaysList();
   }
 
   getDayClass(day: Date): string {

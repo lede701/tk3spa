@@ -1,1 +1,4 @@
-<div class="grnat-code" *ngFor="let g of getGrantList()">{{g.getGrantCode()}}</div>
+<div class="grant-line" *ngFor="let g of getGrantList()">
+   <div class="grant-code cell-day-2">{{g.getGrantCode()}}</div>
+  <div class="cell-day" *ngFor="let day of getDaysList()"><span [innerHTML]="formatTime(g.getDayDetails(day).hrWorked)"></span></div>
+</div>

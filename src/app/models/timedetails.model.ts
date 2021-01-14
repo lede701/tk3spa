@@ -1,15 +1,17 @@
 import { Timesheet } from './sheet.model';
+import { BaseModel } from './base.model';
 
-export class TimeDetails {
+export class TimeDetails extends BaseModel {
   id: number;
   g_id: number;
   ts_id: number;
   status: number;
   hrWorked: number;
   tDate: Date;
+  comment: string;
 
-  constructor() {
-
+  constructor(params?: any) {
+    super(params);
   }
 
   loadSheet(ts: Timesheet): TimeDetails[] {

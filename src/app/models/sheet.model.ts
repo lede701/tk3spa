@@ -1,7 +1,9 @@
 import { User } from './user.model';
 import { GrantDetails } from './grantdetails.model';
+import { TimeDetails } from './timedetails.model';
+import { BaseModel } from './base.model';
 
-export class Timesheet {
+export class Timesheet extends BaseModel{
   id: string;
   u_id: string;
   eSign: boolean;
@@ -22,21 +24,19 @@ export class Timesheet {
 
   grantDetails: GrantDetails[];
   user: User;
-  daysData: Date[];
+  daysKeyList: Date[];
+  daysData: any;
   timesheetHours: number = 0;
 
   monthName: Array<string> = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
   monthFullName: Array<string> = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 
-  constructor(params?:any) {
-    if (params !== undefined) {
-      for (let key in params) {
-        this[key] = params[key];
-      }
-    }
+  constructor(params?: any) {
+    super(params);
   }
 
   load(tsid: number): Timesheet {
+    // TODO: Send this request to the CRUD service
     switch (tsid) {
       case 42957: {
           this.id = '42957';
@@ -50,8 +50,7 @@ export class Timesheet {
           this.tEmployeeStatus = 2;
           this.loadDaysData();
           this.loadUser();
-          this.grantDetails = [];
-          this.grantDetails.push(new GrantDetails({grantNum: '12021', projCode: '00' }));
+          this.loadGrants();
         }
         break;
     }
@@ -59,10 +58,7 @@ export class Timesheet {
   }
 
   loadDaysData() {
-    this.daysData = [];
-
-    //let td = new TimeDetails();
-    //this.timeDetails = td.loadSheet(this);
+    this.daysKeyList = [];
 
     // Create start day of time sheet
     let day = new Date(`${this.startDate.getDate()}/${this.startDate.getMonth() + 1}/${this.startDate.getFullYear()} 10:00 AM`);
@@ -70,13 +66,15 @@ export class Timesheet {
     let runLoop = 0;
     let runAwayThreshold = 50;
     // Put start date into the list of days
-    this.daysData.push(new Date(day));
+    let dayKey = this.getDateKey(day);
+    this.daysKeyList.push(new Date(day));
     // Create list of days between start and end dates
     while (day.valueOf() < this.endDate.valueOf()) {
       // Add one day to the day date
       day.setDate(day.getDate() + 1);
       // Puch next day in list to the days array
-      this.daysData.push(new Date(day));
+      dayKey = this.getDateKey(day);
+      this.daysKeyList.push(new Date(day));
 
       // Check if this day is counted as a work day
       if (day.getDay() != 0 && day.getDay() != 6) {
@@ -90,6 +88,27 @@ export class Timesheet {
         break;
       }
     }
+  }
+
+  loadGrants() {
+    let daysData = {};
+    // TODO: Load grant data from CRUD
+    for (let i = 0; i < this.daysKeyList.length; ++i) {
+      let day = this.daysKeyList[i];
+      let td = new TimeDetails({ tDate: day });
+      let dayKey = this.getDateKey(day);
+      if (day.getDay() != 0 && day.getDay() != 6) {
+        td.hrWorked = 8;
+      }
+      daysData[dayKey] = td;
+    }
+    console.log(daysData);
+    this.grantDetails = [];
+    this.grantDetails.push(new GrantDetails({
+      grantNum: '12021',
+      projCode: '00',
+      daysData: daysData
+    }));
   }
 
   loadUser() {
@@ -138,6 +157,20 @@ export class Timesheet {
 
   getDaysData(): Date[] {
     return this.daysData;
+  }
+
+  getDaysList(): Date[] {
+    return this.daysKeyList;
+  }
+
+  getDayDetails(day: Date): TimeDetails {
+    let dayKey = this.getDateKey(day);
+    let td = new TimeDetails();
+    if (this.daysData[dayKey] !== undefined) {
+      td = this.daysData[dayKey];
+    }
+
+    return td;
   }
 
   getFullMonth(): string {
