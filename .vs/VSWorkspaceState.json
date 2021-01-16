@@ -7,6 +7,6 @@
     "\\src\\app\\timesheet-day-list",
     "\\src\\app\\timesheet-grant"
   ],
-  "SelectedNode": "\\src\\app\\timesheet-day-list\\timesheet-day-list.component.html",
+  "SelectedNode": "\\src\\app\\timesheet-grant\\timesheet-grant.component.ts",
   "PreviewInSolutionExplorer": false
 }

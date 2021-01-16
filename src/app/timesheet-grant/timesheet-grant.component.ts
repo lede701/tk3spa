@@ -40,4 +40,15 @@ export class TimesheetGrantComponent implements OnInit {
     // Return trhe formatted string
     return ftime;
   }
+  getCommentMarkerClass(td: TimeDetails): string {
+    let markerClass = "comment-empty";
+    if (td.comment !== undefined && td.comment.length > 0) {
+      markerClass = "comment-filled";
+    }
+    return markerClass;
+  }
+
+  onEditDay(td: TimeDetails) {
+    //$('#cellEditor').innerHtml(td.comment);
+  }
 }

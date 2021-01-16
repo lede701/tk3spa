@@ -1,4 +1,6 @@
 @borderColor: #d8d8d8;
+@commentColor: #77c899;
+@commentBoxSize: 10px;
 
 .grant-line{
   border: 1px solid @borderColor;
@@ -20,4 +22,24 @@
 
 .cell-day-2 {
   width: 100%/9;
+}
+
+
+.comment-empty {
+  border: 1px solid darken(@commentColor, 20%);
+  border-radius: 2px;
+  display: inline-block;
+  height: @commentBoxSize;
+  margin: 0px 2px 5px 0px;
+  width: @commentBoxSize;
+}
+
+.comment-filled {
+  background-image: linear-gradient(to bottom right, darken(@commentColor, 5%), lighten(@commentColor, 25%));
+  border: 1px solid darken(@commentColor, 30%);
+  border-radius: 2px;
+  display: inline-block;
+  height: @commentBoxSize;
+  margin: 0px 2px 5px 0px;
+  width: @commentBoxSize;
 }

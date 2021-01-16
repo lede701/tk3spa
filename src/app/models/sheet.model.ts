@@ -99,6 +99,7 @@ export class Timesheet extends BaseModel{
       let dayKey = this.getDateKey(day);
       if (day.getDay() != 0 && day.getDay() != 6) {
         td.hrWorked = 8;
+        td.comment = "Test comment";
       }
       daysData[dayKey] = td;
     }
