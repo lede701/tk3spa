@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Timesheet } from "../models/sheet.model";
-import { GrantDetails } from "../models/grantdetails.model";
-import { TimeDetails } from '../models/timedetails.model';
+import { Timesheet } from "../../models/sheet.model";
+import { GrantDetails } from "../../models/grantdetails.model";
+import { TimeDetails } from '../../models/timedetails.model';
 
 @Component({
   selector: 'app-timesheet-grant',

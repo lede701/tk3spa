@@ -3,10 +3,8 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\models",
-    "\\src\\app\\timesheet-day-list",
-    "\\src\\app\\timesheet-grant"
+    "\\src\\app\\timesheet"
   ],
-  "SelectedNode": "\\src\\app\\timesheet-grant\\timesheet-grant.component.ts",
+  "SelectedNode": "\\src\\app\\timesheet\\timesheet.component.ts",
   "PreviewInSolutionExplorer": false
 }
