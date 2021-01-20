@@ -1,5 +1,4 @@
 <div class="grant-line" *ngFor="let g of getGrantList()">
    <div class="grant-code cell-day-2">{{g.getGrantCode()}}</div>
   <div class="cell-day" *ngFor="let day of getDaysList()" (click)="onEditDay(g.getDayDetails(day))"><span class="{{getCommentMarkerClass(g.getDayDetails(day))}}"></span><span [innerHTML]="formatTime(g.getDayDetails(day).hrWorked)"></span></div>
-  <div id="cellEditor"></div>
 </div>

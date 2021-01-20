@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoggerService } from './shared/logger.service';
 
 @Component({
   selector: 'app-root',
@@ -8,4 +9,6 @@ import { Component } from '@angular/core';
 export class AppComponent {
   title = 'TimeKeeper 3';
   version = '3.0.1';
+
+  constructor(private log: LoggerService) { }
 }

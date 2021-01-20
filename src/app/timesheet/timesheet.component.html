@@ -1,5 +1,5 @@
 <app-timesheet-header [timesheet]="ts"></app-timesheet-header>
-<app-timesheet-grant [timesheet]="ts"></app-timesheet-grant>
+<app-timesheet-grant [timesheet]="ts" (dayClicked)="onDayClicked($event)"></app-timesheet-grant>
 <app-timesheet-leave></app-timesheet-leave>
 <app-timesheet-lunch></app-timesheet-lunch>
 <app-timesheet-sums></app-timesheet-sums>

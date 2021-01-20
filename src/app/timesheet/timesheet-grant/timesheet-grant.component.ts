@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Timesheet } from "../../models/sheet.model";
 import { GrantDetails } from "../../models/grantdetails.model";
 import { TimeDetails } from '../../models/timedetails.model';
@@ -9,6 +9,8 @@ import { TimeDetails } from '../../models/timedetails.model';
   styleUrls: ['./timesheet-grant.component.less']
 })
 export class TimesheetGrantComponent implements OnInit {
+
+  @Output() dayClicked = new EventEmitter<TimeDetails>();
 
   @Input() timesheet: Timesheet;
 
@@ -49,6 +51,6 @@ export class TimesheetGrantComponent implements OnInit {
   }
 
   onEditDay(td: TimeDetails) {
-    //$('#cellEditor').innerHtml(td.comment);
+    this.dayClicked.emit(td);
   }
 }

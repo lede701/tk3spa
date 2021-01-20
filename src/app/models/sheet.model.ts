@@ -1,8 +1,11 @@
+import { Injectable } from '@angular/core';
+
 import { User } from './user.model';
 import { GrantDetails } from './grantdetails.model';
 import { TimeDetails } from './timedetails.model';
 import { BaseModel } from './base.model';
 
+@Injectable()
 export class Timesheet extends BaseModel{
   id: string;
   u_id: string;

@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { LoggerService } from './shared/logger.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NameComponent } from './name/name.component';
@@ -32,7 +33,7 @@ import { TimesheetHeaderComponent } from './timesheet/timesheet-header/timesheet
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [LoggerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
