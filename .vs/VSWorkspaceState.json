@@ -3,7 +3,10 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\timesheet"
+    "\\src\\app\\models",
+    "\\src\\app\\shared",
+    "\\src\\app\\timesheet",
+    "\\src\\app\\timesheet\\timesheet-grant"
   ],
   "SelectedNode": "\\src\\app\\timesheet\\timesheet.component.ts",
   "PreviewInSolutionExplorer": false
