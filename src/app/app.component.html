@@ -1,19 +1,4 @@
-<div class="grid-x">
-  <div class="cell medium-12">
-    <nav>
-      <ul class="menu">
-        <li routerLinkActive="is-active"
-            [routerLinkActiveOptions]="{exact: true}"><a routerLink="/">Home</a></li>
-        <li routerLinkActive="is-active">
-          <a routerLink="/timesheet">Timesheet</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</div>
-
-<h1>{{title}}</h1>
-
+<app-menu [title]="title"></app-menu>
 <router-outlet></router-outlet>
 <script>
   $(document).foundation();

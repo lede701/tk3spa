@@ -1,13 +1,15 @@
+import { Injectable } from '@angular/core';
+
 import { BaseModel } from './base.model';
 import { TimeDetails } from './timedetails.model';
 
+@Injectable()
 export class GrantDetails extends BaseModel {
 
   id: number;
   grantNum: string;
   projCode: string;
 
-  data: TimeDetails[];
   daysData: {};
 
   constructor(params?:any) {
@@ -27,4 +29,19 @@ export class GrantDetails extends BaseModel {
 
     return td;
   }
+
+  getGrantSum(): string {
+    // Get list of keys in the daysData object
+    let dataKeys = Object.keys(this.daysData);
+    // Setup sum for this grant
+    let sum = 0;
+    for (let key in dataKeys) {
+      let day: TimeDetails = this.daysData[dataKeys[key]];
+      if (day.hrWorked !== undefined) {
+        sum += day.hrWorked;
+      }
+    }
+    return sum > 0 ? `${sum}` : '';
+  }
+
 }

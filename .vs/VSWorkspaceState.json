@@ -3,11 +3,8 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\models",
-    "\\src\\app\\shared",
-    "\\src\\app\\timesheet",
-    "\\src\\app\\timesheet\\timesheet-grant"
+    "\\src\\app\\timesheet"
   ],
-  "SelectedNode": "\\src\\app\\timesheet\\timesheet.component.ts",
+  "SelectedNode": "\\src\\app\\app-routing.module.ts",
   "PreviewInSolutionExplorer": false
 }

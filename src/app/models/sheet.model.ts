@@ -38,6 +38,13 @@ export class Timesheet extends BaseModel{
     super(params);
   }
 
+  addDayToSheetSum(day: Date) {
+    // Check if this day is counted as a work day
+    if (day.getDay() != 0 && day.getDay() != 6) {
+      this.timesheetHours += 8;
+    }
+  }
+
   load(tsid: number): Timesheet {
     // TODO: Send this request to the CRUD service
     switch (tsid) {
@@ -71,18 +78,16 @@ export class Timesheet extends BaseModel{
     // Put start date into the list of days
     let dayKey = this.getDateKey(day);
     this.daysKeyList.push(new Date(day));
+    this.addDayToSheetSum(day);
     // Create list of days between start and end dates
     while (day.valueOf() < this.endDate.valueOf()) {
       // Add one day to the day date
       day.setDate(day.getDate() + 1);
-      // Puch next day in list to the days array
+      // Push next day in list to the days array
       dayKey = this.getDateKey(day);
       this.daysKeyList.push(new Date(day));
 
-      // Check if this day is counted as a work day
-      if (day.getDay() != 0 && day.getDay() != 6) {
-        this.timesheetHours += 8;
-      }
+      this.addDayToSheetSum(day);
 
       // Check if loop is no running away
       if (runLoop++ > runAwayThreshold) {
@@ -106,7 +111,6 @@ export class Timesheet extends BaseModel{
       }
       daysData[dayKey] = td;
     }
-    console.log(daysData);
     this.grantDetails = [];
     this.grantDetails.push(new GrantDetails({
       grantNum: '12021',

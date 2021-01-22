@@ -14,7 +14,9 @@ import { TimesheetLunchComponent } from './timesheet/timesheet-lunch/timesheet-l
 import { TimesheetSumsComponent } from './timesheet/timesheet-sums/timesheet-sums.component';
 import { TimesheetSignaturesComponent } from './timesheet/timesheet-signatures/timesheet-signatures.component';
 import { TimesheetHeaderComponent } from './timesheet/timesheet-header/timesheet-header.component';
-import { HomeComponent } from './home-component/home-component.component';
+import { HomeComponent } from './home/home.component';
+import { MenuComponent } from './menu/menu.component';
+import { MenuEditComponent } from './menu/menu-edit/menu-edit.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { HomeComponent } from './home-component/home-component.component';
     TimesheetSumsComponent,
     TimesheetSignaturesComponent,
     TimesheetHeaderComponent,
-    HomeComponent
+    HomeComponent,
+    MenuComponent,
+    MenuEditComponent
   ],
   imports: [
     BrowserModule,

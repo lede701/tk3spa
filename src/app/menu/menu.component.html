@@ -1,0 +1,8 @@
+<nav>
+  <ul class="menu">
+    <li class="menu-text"><h1>{{siteTitle}}</h1></li>
+    <li *ngFor="let m of menuItems"
+        routerLinkActive="{{m.activeClass}}"
+        [routerLinkActiveOptions]="{exact: m.exactRoute}"><a routerLink="{{m.route}}">{{m.link}}</a></li>
+  </ul>
+</nav>
