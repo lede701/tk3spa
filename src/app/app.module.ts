@@ -17,6 +17,9 @@ import { TimesheetHeaderComponent } from './timesheet/timesheet-header/timesheet
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { MenuEditComponent } from './menu/menu-edit/menu-edit.component';
+import { LeaveComponent } from './leave/leave.component';
+import { AuthComponent } from './auth/auth.component';
+import { AuthService } from './auth/auth.service';
 
 @NgModule({
   declarations: [
@@ -33,13 +36,15 @@ import { MenuEditComponent } from './menu/menu-edit/menu-edit.component';
     TimesheetHeaderComponent,
     HomeComponent,
     MenuComponent,
-    MenuEditComponent
+    MenuEditComponent,
+    LeaveComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [LoggerService],
+  providers: [LoggerService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

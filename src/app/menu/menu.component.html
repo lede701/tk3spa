@@ -1,8 +1,8 @@
 <nav>
   <ul class="menu">
-    <li class="menu-text"><h1><img src="./assets/tk3Logo.png" /> {{siteTitle}}</h1></li>
+    <li class="menu-text nav-heading"><span class="nav-logo"><img src="./assets/tk3Logo.png" height="16" width="16" /></span> {{siteTitle}}</li>
     <li *ngFor="let m of menuItems"
         routerLinkActive="{{m.activeClass}}"
-        [routerLinkActiveOptions]="{exact: m.exactRoute}"><a routerLink="{{m.route}}">{{m.link}}</a></li>
+        [routerLinkActiveOptions]="{exact: m.exactRoute}"><a [routerLink]="m.route">{{m.link}}</a></li>
   </ul>
 </nav>
