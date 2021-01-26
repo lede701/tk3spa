@@ -1,14 +1,12 @@
 {
   "ExpandedNodes": [
     "",
+    "\\src",
     "\\src\\app",
-    "\\src\\app\\auth",
-    "\\src\\app\\images",
-    "\\src\\app\\menu",
     "\\src\\app\\models",
     "\\src\\app\\models\\data",
-    "\\src\\assets"
+    "\\src\\app\\timesheet\\timesheet-header"
   ],
-  "SelectedNode": "\\src",
+  "SelectedNode": "\\src\\app\\models\\leavedetails.model.ts",
   "PreviewInSolutionExplorer": false
 }

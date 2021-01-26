@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import { BaseModel } from './base.model';
+import { LeaveTransaction } from './data/leaveTransaction';
 
 @Injectable()
 export class LeaveDetailsModel extends BaseModel {
@@ -11,26 +12,21 @@ export class LeaveDetailsModel extends BaseModel {
 
   daysData: {};
 
-  userId: number;
-  parentId: number;
-  locationId: number;
-  bank: string;
-  tranType: string;
-  tranTime: number;
-  tranDate: Date;
-  reqDate: Date;
-  empSign: number;
-  approval: number;
-  isAccrual: boolean;
-  isParent: number;
-  created: Date;
-  createdBy: number;
-  modified: Date;
-  modifiedBy: number;
-  status: number;
-
   constructor(params) {
     super(params);
+  }
+
+  getDayDetails(day: Date): LeaveTransaction {
+    let dayKey = this.getDateKey(day);
+    let ltDetails: LeaveTransaction = new LeaveTransaction();
+    ltDetails.reqDate = day;
+    // Check if data has been loaded for this date
+    if (this.daysData[dayKey] !== undefined) {
+      ltDetails = this.daysData[dayKey];
+    }
+
+    // Return the 
+    return ltDetails;
   }
 
 }
