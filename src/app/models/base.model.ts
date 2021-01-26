@@ -8,6 +8,6 @@ export class BaseModel {
   }
 
   getDateKey(date: Date): string {
-    return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+    return `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
   }
 }

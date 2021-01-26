@@ -20,6 +20,11 @@ import { MenuEditComponent } from './menu/menu-edit/menu-edit.component';
 import { LeaveComponent } from './leave/leave.component';
 import { AuthComponent } from './auth/auth.component';
 import { AuthService } from './auth/auth.service';
+import { DaysheetComponent } from './daysheet/daysheet.component';
+import { DayslistComponent } from './daysheet/dayslist/dayslist.component';
+import { TimesheetService } from './timesheet/timesheet.service';
+import { DayDetailsComponent } from './daysheet/day-details/day-details.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -38,13 +43,17 @@ import { AuthService } from './auth/auth.service';
     MenuComponent,
     MenuEditComponent,
     LeaveComponent,
-    AuthComponent
+    AuthComponent,
+    DaysheetComponent,
+    DayslistComponent,
+    DayDetailsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
-  providers: [LoggerService, AuthService],
+  providers: [LoggerService, AuthService, TimesheetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

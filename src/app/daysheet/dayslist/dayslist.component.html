@@ -1,0 +1,3 @@
+<ul class="vertical tabs" data-tabs id="dayTabs">
+  <li class="tabs-title" *ngFor="let day of daysList" routerLinkActive="is-active"><a routerLink="{{getDateKey(day)}}">{{getDayFormat(day)}}</a></li>
+</ul>
