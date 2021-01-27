@@ -4,8 +4,7 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\models",
-    "\\src\\app\\models\\data",
-    "\\src\\app\\timesheet\\timesheet-header"
+    "\\src\\app\\models\\data"
   ],
   "SelectedNode": "\\src\\app\\models\\leavedetails.model.ts",
   "PreviewInSolutionExplorer": false

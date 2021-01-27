@@ -1,6 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+import { AuthService } from './auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -10,17 +13,46 @@ import { Subscription } from 'rxjs';
 export class AuthComponent implements OnInit, OnDestroy {
   private routeParamsSubscriber: Subscription;
 
-  constructor(private route: ActivatedRoute) { }
+  authForm: FormGroup;
+  type: string;
+
+  constructor(private actRoute: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
-    console.log(this.route.snapshot.params);
-    this.routeParamsSubscriber = this.route.params
+    this.routeParamsSubscriber = this.actRoute.firstChild.params
       .subscribe((params: Params) => {
-        console.log(params['type']);
+        this.type = params['type'];
       });
+
+    this.authForm = new FormGroup({
+      'username': new FormControl(null, [Validators.required]),
+      'password': new FormControl(null, [Validators.required]),
+      'rememberMe': new FormControl(null)
+    });
   }
 
   ngOnDestroy() {
     this.routeParamsSubscriber.unsubscribe();
+  }
+
+  getIsLoggedIn(): boolean {
+    return this.authService.getIsAuthenticated();
+  }
+
+  onLoginClicked() {
+    
+  }
+
+  onSubmit(): boolean {
+    let bRetVal: boolean = false;
+    if (this.authForm.status === 'VALID') {
+      bRetVal = this.authService.Login(this.authForm.value['username'], this.authForm.value['password']);
+    } else {
+      console.error("Invalid login information");
+    }
+
+    this.router.navigate(['/']);
+
+    return bRetVal;
   }
 }

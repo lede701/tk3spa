@@ -9,7 +9,7 @@ import { DaysheetComponent } from './daysheet/daysheet.component';
 import { DayDetailsComponent } from './daysheet/day-details/day-details.component';
 
 const routes: Routes = [
-  //{ path: '', component: HomeComponent },
+  { path: '', component: HomeComponent },
   {
     path: 'day', component: DaysheetComponent, children: [
       { path: ':day', component: DayDetailsComponent }

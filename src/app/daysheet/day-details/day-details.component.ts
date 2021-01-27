@@ -25,13 +25,12 @@ export class DayDetailsComponent implements OnInit, OnDestroy {
   constructor(private tsService: TimesheetService, private router: Router, private actRoute: ActivatedRoute) {
     // Check if the route has a defined child
     if (Object.keys(this.actRoute).indexOf('firstChild') === -1) {
-      console.log(this.actRoute);
       // Redirect to either current day if within date range or first day on timesheet
       let now: Date = new Date();
       let day: Date = now;
       let ts = this.tsService.getCurrentTimesheet();
       if (!(now.getTime() > ts.startDate.getTime() && now.getTime() <= ts.endDate.getTime())) {
-        day = ts.endDate;
+        day = ts.startDate;
       }
       let dayKey = ts.getDateKey(day);
       this.router.navigate(['day', dayKey]);
@@ -54,6 +53,13 @@ export class DayDetailsComponent implements OnInit, OnDestroy {
       'hrWorked': new FormControl(null),
       'comment': new FormControl(null)
     });
+  }
+
+  getCurrentDay(): string {
+    let monthName = this.ts.getFullMonth(this.day);
+    let dayName = this.ts.getFullDayName(this.day);
+
+    return `${dayName} ${monthName} ${this.day.getDate()} ${this.day.getFullYear()}`;
   }
 
   getGrantDetailList(): GrantDetails[] {

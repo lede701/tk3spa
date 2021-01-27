@@ -12,9 +12,14 @@ export class MenuComponent implements OnInit {
   @Input("title") siteTitle: string;
 
   constructor(private auth: AuthService) {
+
+
+  }
+
+  ngOnInit(): void {
     this.menuItems = [new MenuModel('/', 'Home', 'is-active', true),
-      new MenuModel('/timesheet', 'Timesheets', 'is-active', false),
-      new MenuModel('/leave', 'Leave', 'is-active', false)
+    new MenuModel('/day', 'Timesheets', 'is-active', false),
+    new MenuModel('/leave', 'Leave', 'is-active', false)
     ];
 
     if (this.auth.getIsAuthenticated()) {
@@ -22,10 +27,6 @@ export class MenuComponent implements OnInit {
     } else {
       this.menuItems.push(new MenuModel(['auth', 'login'], 'Login', 'is-active', false));
     }
-
-  }
-
-  ngOnInit(): void {
   }
 
 }

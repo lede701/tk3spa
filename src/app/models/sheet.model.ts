@@ -31,7 +31,8 @@ export class Timesheet extends BaseModel{
   daysData: any;
   timesheetHours: number = 0;
 
-  dayNames: Array<string> = ["Sun", "Mon", "Tue", "Wed", "Thru", "Fri", "Sat"];
+  dayNames: Array<string> = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+  dayFullNames: Array<string> = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
   monthName: Array<string> = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"];
   monthFullName: Array<string> = ["January", "Febuary", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
@@ -194,15 +195,20 @@ export class Timesheet extends BaseModel{
     return td;
   }
 
-  getFullMonth(): string {
+  getFullMonth(date?:Date): string {
     let mon = "";
+    if (date === undefined) date = this.startDate;
 
-    mon = this.monthFullName[this.startDate.getMonth()];
-    if (this.startDate.getMonth() != this.endDate.getMonth()) {
+    mon = this.monthFullName[date.getMonth()];
+    if (date.getMonth() != this.endDate.getMonth()) {
       mon += ` - ${this.monthFullName[this.endDate.getMonth()]}`;
     }
 
     return mon;
+  }
+
+  getFullDayName(date: Date): string {
+    return this.dayFullNames[date.getDay()];
   }
 
   getLastFirstName(): string {
