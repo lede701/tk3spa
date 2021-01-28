@@ -9,6 +9,11 @@ export class AuthService {
 
   constructor() {
     this._isAuthenticated = false;
+    let jSess = localStorage.getItem("tk3user");
+    let objSess = JSON.parse(jSess);
+    for (let key in objSess) {
+      this[key] = objSess[key];
+    }
   }
 
   getIsAuthenticated(): boolean {
@@ -25,6 +30,16 @@ export class AuthService {
     this._username = username;
     this._isAuthenticated = true;
 
+    localStorage.setItem("tk3user", JSON.stringify(this));
+
     return true;
+  }
+
+  Logout() {
+    this._userId = 0;
+    this._username = '';
+    this._isAuthenticated = false;
+
+    localStorage.setItem("tk3user", JSON.stringify(this));
   }
 }

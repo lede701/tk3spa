@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
-import { AuthService } from './auth.service';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-auth',
@@ -22,6 +22,9 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.routeParamsSubscriber = this.actRoute.firstChild.params
       .subscribe((params: Params) => {
         this.type = params['type'];
+        if (this.type == 'logout') {
+          this.authService.Logout();
+        }
       });
 
     this.authForm = new FormGroup({

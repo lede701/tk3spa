@@ -19,7 +19,7 @@ import { MenuComponent } from './menu/menu.component';
 import { MenuEditComponent } from './menu/menu-edit/menu-edit.component';
 import { LeaveComponent } from './leave/leave.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './shared/auth.service';
 import { DaysheetComponent } from './daysheet/daysheet.component';
 import { DayslistComponent } from './daysheet/dayslist/dayslist.component';
 import { TimesheetService } from './timesheet/timesheet.service';
