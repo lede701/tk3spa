@@ -1,0 +1,26 @@
+@activeBaseColor: #104b82;
+
+.tabs-title a{
+    padding: 10px 20px 5px 20px;
+    font-size: 14pt;
+}
+
+.is-active {
+  background-color: @activeBaseColor;
+  color: white;
+
+  a:link {
+    background-color: @activeBaseColor;
+    color: white;
+  }
+
+  a:visited {
+    background-color: @activeBaseColor;
+    color: darken(white, 10%);
+  }
+
+  a:hover {
+    background-color: @activeBaseColor;
+    color: lighten(@activeBaseColor, 50%);
+  }
+}

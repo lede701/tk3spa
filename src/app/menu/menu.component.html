@@ -1,8 +1,14 @@
 <nav>
-  <ul class="menu">
+  <ul class="dropdown menu" data-dropdown-menu>
     <li class="menu-text nav-heading"><span class="nav-logo"><img src="./assets/tk3Logo.png" height="21" width="22" /></span> {{siteTitle}}</li>
-    <li *ngFor="let m of menuItems"
-        routerLinkActive="{{m.activeClass}}"
-        [routerLinkActiveOptions]="{exact: m.exactRoute}"><a [routerLink]="m.route">{{m.link}}</a></li>
+    <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ items: menuItems}"></ng-container>
   </ul>
 </nav>
+
+<ng-template #recursiveListTmpl let-items="items">
+  <li *ngFor="let m of items"
+      routerLinkActive="{{m.activeClass}}"
+      [routerLinkActiveOptions]="{exact: m.exactRoute}"><a [routerLink]="m.route">{{m.link}}</a><ul class="menu" *ngIf="m.children.length > 0">
+          <ng-container *ngTemplateOutlet="recursiveListTmpl; context:{ items: m.children}"></ng-container>
+          </ul></li>
+</ng-template>

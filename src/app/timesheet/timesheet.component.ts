@@ -7,15 +7,14 @@ import { TimesheetService } from './timesheet.service';
 @Component({
   selector: 'app-timesheet',
   templateUrl: './timesheet.component.html',
-  styleUrls: ['./timesheet.component.less'],
-  providers: [TimesheetService]
+  styleUrls: ['./timesheet.component.less']
 })
 export class TimesheetComponent implements OnInit {
 
   ts: Timesheet;
 
   constructor(private log: LoggerService, private tsService: TimesheetService) {
-    this.ts = new Timesheet();
+    this.ts = tsService.getCurrentTimesheet();
     this.ts.load(42957);
   }
 

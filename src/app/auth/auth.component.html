@@ -1,1 +1,28 @@
-<p>auth works!</p>
+<div *ngIf="type == 'login'">
+  <p *ngIf="getIsLoggedIn()">You are logged in</p>
+  <div *ngIf="!getIsLoggedIn()">
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+      <div class="grid-x">
+        <div class="cell small-4 small-offset-4">
+          <label for="username">Username</label>
+          <input type="text" name="username" value="" formControlName="username" />
+          <label for="password">Password</label>
+          <input type="password" name="password" value="" formControlName="password" />
+          <input type="checkbox" name="rememberMe" formControlName="rememberMe" value="yes" />
+          <label for="rememberMe">Remember Me</label>
+        </div>
+      </div>
+      <div class="grid-x">
+        <div class="cell small-2 small-offset-4">
+          <button type="submit" class="button">Login</button>
+        </div>
+        <div class="cell small-2">
+          <button type="button" class="button">Cancel</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+<div *ngIf="type == 'logout'">
+  Bye!
+</div>
