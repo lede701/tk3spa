@@ -23,9 +23,4 @@ export class DayslistComponent implements OnInit {
   getDateKey(day: Date): string {
     return this.ts.getDateKey(day);
   }
-
-  getDayFormat(day: Date): string {
-    return `${this.ts.getDayName(day)} ${day.getMonth()+1}/${day.getDate()}`;
-  }
-
 }

@@ -116,6 +116,7 @@ export class Timesheet extends BaseModel{
     }
     this.grantDetails = [];
     this.grantDetails.push(new GrantDetails({
+      id: 1135,
       grantNum: '12021',
       projCode: '00',
       daysData: daysData

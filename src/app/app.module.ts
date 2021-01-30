@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
-import { LoggerService } from './shared/logger.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NameComponent } from './name/name.component';
@@ -19,7 +19,6 @@ import { MenuComponent } from './menu/menu.component';
 import { MenuEditComponent } from './menu/menu-edit/menu-edit.component';
 import { LeaveComponent } from './leave/leave.component';
 import { AuthComponent } from './auth/auth.component';
-import { AuthService } from './shared/auth.service';
 import { DaysheetComponent } from './daysheet/daysheet.component';
 import { DayslistComponent } from './daysheet/dayslist/dayslist.component';
 import { TimesheetService } from './timesheet/timesheet.service';
@@ -51,9 +50,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
-  providers: [LoggerService, AuthService, TimesheetService],
+  providers: [TimesheetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

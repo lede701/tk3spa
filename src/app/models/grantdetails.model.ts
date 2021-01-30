@@ -20,6 +20,10 @@ export class GrantDetails extends BaseModel {
     return `${this.grantNum}-${this.projCode}`;
   }
 
+  getGrantId(): number {
+    return this.id;
+  }
+
   getDayDetails(day?: Date): TimeDetails {
     let td = new TimeDetails({ tDate: day, hrWorked: 8.0 });
     let dayKey = this.getDateKey(day);

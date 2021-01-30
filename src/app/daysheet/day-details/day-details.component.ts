@@ -35,6 +35,7 @@ export class DayDetailsComponent implements OnInit, OnDestroy {
       let dayKey = ts.getDateKey(day);
       this.router.navigate(['day', dayKey]);
     }
+    this.dayForm = new FormGroup({});
   }
 
   ngOnInit(): void {
@@ -43,8 +44,20 @@ export class DayDetailsComponent implements OnInit, OnDestroy {
     this.actRoute.firstChild.params.subscribe(params => {
       // Check for valid unput from the route param object
       if (params != undefined && Object.keys(params).includes('day')) {
+        // Clear form group input fields
         // Create date from the day parameter
         this.day = new Date(params['day']);
+        let grants = this.tsService.getCurrentTimesheet().getGrantList();
+        for (let key in grants) {
+          // Get grant object for current key in loop
+          let g = grants[key];
+          // Get day details for current selected day
+          let td = g.getDayDetails(this.day);
+          // Create dynamic form fields names
+          let timeField = `hrWorked[${g.getGrantId()}]`;
+          let commentField = `comment[${g.getGrantId()}]`;
+
+        }
       }
     });
 
@@ -53,13 +66,6 @@ export class DayDetailsComponent implements OnInit, OnDestroy {
       'hrWorked': new FormControl(null),
       'comment': new FormControl(null)
     });
-  }
-
-  getCurrentDay(): string {
-    let monthName = this.ts.getFullMonth(this.day);
-    let dayName = this.ts.getFullDayName(this.day);
-
-    return `${dayName} ${monthName} ${this.day.getDate()} ${this.day.getFullYear()}`;
   }
 
   getGrantDetailList(): GrantDetails[] {
@@ -72,8 +78,8 @@ export class DayDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSaveDay() {
-    console.log(this.dayForm.value);
+  onSaveDay(f:any) {
+    console.log(f);
   }
 
 }

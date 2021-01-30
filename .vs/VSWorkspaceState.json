@@ -2,8 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\src",
-    "\\src\\app\\menu"
+    "\\src\\app",
+    "\\src\\app\\daysheet\\day-details",
+    "\\src\\app\\daysheet\\dayslist",
+    "\\src\\app\\shared",
+    "\\src\\assets"
   ],
-  "SelectedNode": "\\src\\app",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

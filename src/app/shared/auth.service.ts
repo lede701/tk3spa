@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ConfigService } from './config.service';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private _isAuthenticated: boolean;
   private _userId: number;
   private _username: string;
 
-  constructor() {
+  constructor(private cfgService: ConfigService) {
     this._isAuthenticated = false;
     let jSess = localStorage.getItem("tk3user");
     let objSess = JSON.parse(jSess);

@@ -1,18 +1,17 @@
-<form [formGroup]="dayForm" (ngSubmit)="onSaveDay()">
+<form [formGroup]="dayForm" (ngSubmit)="onSaveDay(f)" #f>
   <div class="grid-x">
-    <div class="cell"><h1>{{getCurrentDay()}}</h1></div>
+    <div class="cell"><h1>{{day | date:"EEEE, MMMM d yyyy"}}</h1></div>
   </div>
   <div class="grid-x grid-padding-x" *ngFor="let g of getGrantDetailList()">
-    
     <div class="cell small-2">
       {{g.getGrantCode()}}
     </div>
     <div class="cell small-1">
-      <input type="text" name="hrWorked" />
+      <input type="text" name="hrWorked[{{g.getGrantId()}}]" formControlName="hrWorked" />
       {{g.getDayDetails(day).hrWorked}}
     </div>
     <div class="cell small-6">
-      <textarea name="comments"></textarea>
+      <textarea name="comments[{{g.getGrantId()}}]"></textarea>
       {{g.getDayDetails(day).comment}}
     </div>
   </div>
