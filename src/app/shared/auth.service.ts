@@ -1,24 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+
 import { ConfigService } from './config.service';
+import { DataService } from './data.service';
+import { User } from './user';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
-  private _isAuthenticated: boolean;
-  private _userId: number;
-  private _username: string;
+  private _user: User;
 
-  constructor(private cfgService: ConfigService) {
-    this._isAuthenticated = false;
+  AuthChanged: Subject<User> = new Subject<User>();
+
+  constructor(private cfgService: ConfigService, private dbService: DataService) {
     let jSess = localStorage.getItem("tk3user");
     let objSess = JSON.parse(jSess);
-    for (let key in objSess) {
-      this[key] = objSess[key];
+    if (objSess) {
+      this._user = objSess;
+    } else {
+      this._user = new User(0, '', '');
     }
   }
 
   getIsAuthenticated(): boolean {
-    return this._isAuthenticated == true;
+    return this._user.isAuthenticated;
   }
 
   Login(username: string, password: string): boolean {
@@ -27,20 +31,18 @@ export class AuthService {
       resolve(true);
     });
     */
-    this._userId = 1;
-    this._username = username;
-    this._isAuthenticated = true;
-
-    localStorage.setItem("tk3user", JSON.stringify(this));
-
+    this._user = new User(1, username, password);
+    this._user.isAuthenticated = true;
+    localStorage.setItem("tk3user", JSON.stringify(this._user));
+    this.AuthChanged.next(this._user);
     return true;
   }
 
   Logout() {
-    this._userId = 0;
-    this._username = '';
-    this._isAuthenticated = false;
+    let newUser = new User(0, '', '');
+    this._user = newUser;
 
-    localStorage.setItem("tk3user", JSON.stringify(this));
+    localStorage.setItem("tk3user", JSON.stringify(this._user));
+    this.AuthChanged.next(this._user);
   }
 }
