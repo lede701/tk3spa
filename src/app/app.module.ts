@@ -24,6 +24,7 @@ import { DayslistComponent } from './daysheet/dayslist/dayslist.component';
 import { TimesheetService } from './timesheet/timesheet.service';
 import { DayDetailsComponent } from './daysheet/day-details/day-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SpinnerComponent } from './shared/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AuthComponent,
     DaysheetComponent,
     DayslistComponent,
-    DayDetailsComponent
+    DayDetailsComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

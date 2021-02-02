@@ -1,20 +1,30 @@
 <div *ngIf="type == 'login'">
   <p *ngIf="getIsLoggedIn()">You are logged in</p>
   <div *ngIf="!getIsLoggedIn()">
-    <form [formGroup]="authForm" (ngSubmit)="onSubmit()">
+    <div *ngIf="isLoading" style="text-align: center;">
+      <app-spinner></app-spinner>
+    </div>
+    <div class="alert-box warning" data-alert *ngIf="message">{{message}}</div>
+    <form [formGroup]="authForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
       <div class="grid-x">
         <div class="cell small-4 small-offset-4">
-          <label for="username">Username</label>
+          <label for="username">Username (eMail Address)</label>
           <input type="text" name="username" value="" formControlName="username" />
           <label for="password">Password</label>
           <input type="password" name="password" value="" formControlName="password" />
+          <label for="confirm" *ngIf="!isLogin">Confirm Password</label>
+          <input type="password" name="confirm" value="" formControlName="confirm" *ngIf="!isLogin" />
+
           <input type="checkbox" name="rememberMe" formControlName="rememberMe" value="yes" />
           <label for="rememberMe">Remember Me</label>
         </div>
       </div>
       <div class="grid-x">
-        <div class="cell small-2 small-offset-4">
-          <button type="submit" class="button">Login</button>
+        <div class="cell small-1 small-offset-4">
+          <button type="submit" class="button" [disabled]="!authForm.valid">{{isLogin ? 'Login' : 'Create'}}</button>
+        </div>
+        <div class="cell small-2">
+          <a (click)="toggleCreate()">{{ isLogin ? 'Create an account' : 'Login'}}</a>
         </div>
         <div class="cell small-2">
           <button type="button" class="button">Cancel</button>

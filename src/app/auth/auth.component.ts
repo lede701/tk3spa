@@ -1,9 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 
-import { AuthService } from '../shared/auth.service';
+import { AuthService, AuthResponseData } from '../shared/auth.service';
+import { User } from "../shared/user";
 
 @Component({
   selector: 'app-auth',
@@ -12,6 +13,10 @@ import { AuthService } from '../shared/auth.service';
 })
 export class AuthComponent implements OnInit, OnDestroy {
   private routeParamsSubscriber: Subscription;
+
+  isLogin: boolean = true;
+  isLoading: boolean = false;
+  message: string = null;
 
   authForm: FormGroup;
   type: string;
@@ -28,8 +33,9 @@ export class AuthComponent implements OnInit, OnDestroy {
       });
 
     this.authForm = new FormGroup({
-      'username': new FormControl(null, [Validators.required]),
-      'password': new FormControl(null, [Validators.required]),
+      'username': new FormControl(null, [Validators.required, Validators.email]),
+      'password': new FormControl(null, [Validators.required, Validators.minLength(6)]),
+      'confirm': new FormControl(null),
       'rememberMe': new FormControl(null)
     });
   }
@@ -42,20 +48,42 @@ export class AuthComponent implements OnInit, OnDestroy {
     return this.authService.getIsAuthenticated();
   }
 
-  onLoginClicked() {
-    
-  }
-
   onSubmit(): boolean {
     let bRetVal: boolean = false;
     if (this.authForm.status === 'VALID') {
-      bRetVal = this.authService.Login(this.authForm.value['username'], this.authForm.value['password']);
-    } else {
+      this.isLoading = true;
+      const username = this.authForm.value.username;
+      const password = this.authForm.value.password;
+      let authObs: Observable<AuthResponseData>;
+      // Check if we are in create or login mode
+      if (this.isLogin) {
+        // Try logging user into the system
+        authObs = this.authService.Login(username, password);
+      } else {
+        // Try creating a new user
+        authObs = this.authService.Create(username, password)
+      }
+      authObs.subscribe(authData => {
+        //this.router.navigate(['/']);
+
+        let newUser = new User(authData.localId, authData.email, authData.idToken);
+        newUser.isAuthenticated = true;
+        this.authService.setUser(newUser);
+        this.isLoading = false;
+        console.log(newUser);
+      }, error => {
+        this.message = error;
+        console.log(error);
+        this.isLoading = false;
+      });
+  } else {
       console.error("Invalid login information");
     }
 
-    this.router.navigate(['/']);
+     return bRetVal;
+  }
 
-    return bRetVal;
+  toggleCreate() {
+    this.isLogin = !this.isLogin;
   }
 }
