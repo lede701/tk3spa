@@ -1,4 +1,4 @@
-export class User {
+export class Tk3User {
 
   id: number;
   fkid: number;

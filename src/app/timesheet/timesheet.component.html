@@ -1,8 +1,8 @@
 <div class="grid-x">
   <div class="medium-10 medium-offset-1">
     <app-timesheet-header [timesheet]="ts"></app-timesheet-header>
-    <app-timesheet-grant [timesheet]="ts" (dayClicked)="onDayClicked($event)"></app-timesheet-grant>
     <app-timesheet-day-list [timesheet]="ts"></app-timesheet-day-list>
+    <app-timesheet-grant [timesheet]="ts" (dayClicked)="onDayClicked($event)"></app-timesheet-grant>
     <app-timesheet-leave></app-timesheet-leave>
     <app-timesheet-lunch></app-timesheet-lunch>
     <app-timesheet-sums></app-timesheet-sums>

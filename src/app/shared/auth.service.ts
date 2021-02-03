@@ -1,11 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-import { ConfigService } from './config.service';
 import { DataService } from './data.service';
 import { User } from './user';
+import { environment } from '../../environments/environment';
 
 export interface AuthResponseData {
   idToken: string,
@@ -16,17 +16,32 @@ export interface AuthResponseData {
   registered?:boolean
 }
 
+export interface AuthRefreshData {
+  expires_in: string;
+  token_type: string;
+  refresh_token: string;
+  id_token: string;
+  user_id: string;
+  project_id: string;
+}
+
 @Injectable({ providedIn: 'root' })
-export class AuthService {
+export class AuthService implements OnDestroy {
   private _user: User;
+  private _keepAliveTimer;
 
   AuthChanged: Subject<User> = new Subject<User>();
 
-  constructor(private cfgService: ConfigService, private dbService: DataService, private http: HttpClient) {
+  constructor(private dbService: DataService, private http: HttpClient) {
     let jSess = localStorage.getItem("tk3user");
     let objSess = JSON.parse(jSess);
     if (objSess) {
-      this._user = objSess;
+      this._user = new User(objSess.UserId, objSess.UserName, objSess.Token);
+      this._user.isAuthenticated = objSess.isAuthenticated;
+      this._user.tokenExpires = new Date(objSess.tokenExpires);
+      this._user.refreshToken = objSess.refreshToken;
+      // Check if token need to be updated and also start the tracking prodcess
+      this.UpdateToken(this);
     } else {
       this._user = new User('0', '', '');
     }
@@ -36,26 +51,26 @@ export class AuthService {
     return this._user.isAuthenticated;
   }
 
-  Login(username: string, password: string) {
-    const loginApi = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + this.cfgService.nodeApi;
-    /*
-    const promise = new Promise<boolean>((resolve, reject) => {
-      resolve(true);
-    });
-    */
+  Create(username: string, password: string) {
+    const createApi = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + environment.apiKey;
+    return this.http.post<AuthResponseData>(createApi,
+      {
+        email: username,
+        password: password,
+        returnSecureToken: true
+      }
+    ).pipe(catchError(this.HandleError));
+  }
 
+  Login(username: string, password: string) {
+    // Create API uri for login
+    const loginApi = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=' + environment.apiKey;
+    // Call webclient post method with login information
     return this.http.post<AuthResponseData>(loginApi, {
       email: username,
       password: password,
       returnSecureToken: true
     }).pipe(catchError(this.HandleError));
-    /*
-    this._user = new User(1, username, password);
-    this._user.isAuthenticated = true;
-    localStorage.setItem("tk3user", JSON.stringify(this._user));
-    this.AuthChanged.next(this._user);
-    return true;
-    */
   }
 
   Logout() {
@@ -64,17 +79,38 @@ export class AuthService {
 
     localStorage.setItem("tk3user", JSON.stringify(this._user));
     this.AuthChanged.next(this._user);
+    if (this._keepAliveTimer) {
+      clearTimeout(this._keepAliveTimer);
+    }
   }
 
-  Create(username: string, password: string) {
-    const createApi = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=' + this.cfgService.nodeApi;
-    return this.http.post<AuthResponseData>(createApi,
-      {
-        email: username,
-        password: password,
-        returnSecureToken: true
-      }
-    ).pipe(catchError(this.HandleError));
+  UpdateToken(src:AuthService) {
+    let now = new Date();
+    if (now > src._user.tokenExpires) {
+      // Try and update token
+      let updateApi = 'https://securetoken.googleapis.com/v1/token?key=' + environment.apiKey;
+      src.http.post<AuthRefreshData>(updateApi, {
+        grant_type: 'refresh_token',
+        refresh_token: src._user.refreshToken
+      }).subscribe(authData => {
+        // Token has been updated so update current user token information
+        src._user.Token = authData.id_token;
+        src._user.refreshToken = authData.refresh_token;
+        src._user.tokenExpires = new Date();
+        src._user.tokenExpires.setTime(src._user.tokenExpires.getTime() + +authData.expires_in * 1000);
+      }, error => {
+        src.HandleError(error);
+      });
+    }
+    // Check if there is a timer defined
+    if (src._keepAliveTimer) {
+      // Clear past timer
+      clearTimeout(src._keepAliveTimer);
+    }
+    // Setup next time to check
+    let time = 15 * 60 * 1000;
+    // Create new timout period
+    src._keepAliveTimer = setTimeout(src.UpdateToken, time, src);
   }
 
   HandleError(errorRes) {
@@ -103,4 +139,17 @@ export class AuthService {
     localStorage.setItem("tk3user", JSON.stringify(this._user));
   }
 
+  ngOnDestroy() {
+    if (this._keepAliveTimer) {
+      clearTimeout(this._keepAliveTimer);
+    }
+  }
+
+  getUserName(): string {
+    return this._user.UserName;
+  }
+
+  getUser(): User {
+    return this._user.clone();
+  }
 }

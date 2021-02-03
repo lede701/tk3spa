@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { StoreModule } from '@ngrx/store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,6 +26,9 @@ import { TimesheetService } from './timesheet/timesheet.service';
 import { DayDetailsComponent } from './daysheet/day-details/day-details.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SpinnerComponent } from './shared/spinner/spinner.component';
+import { MenuListComponent } from './menu/menu-list/menu-list.component';
+import { MenuReducer } from './menu/store/menu.reducer';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [
@@ -47,13 +51,16 @@ import { SpinnerComponent } from './shared/spinner/spinner.component';
     DaysheetComponent,
     DayslistComponent,
     DayDetailsComponent,
-    SpinnerComponent
+    SpinnerComponent,
+    MenuListComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    StoreModule.forRoot({ menuItems: MenuReducer}),
+    EffectsModule.forRoot([])
   ],
   providers: [TimesheetService],
   bootstrap: [AppComponent]

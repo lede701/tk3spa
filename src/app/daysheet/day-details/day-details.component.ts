@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router, ActivationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -78,8 +78,8 @@ export class DayDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSaveDay(f:any) {
-    console.log(f);
+  onSaveDay() {
+    console.log(this.dayForm);
   }
 
 }

@@ -1,4 +1,4 @@
-<form [formGroup]="dayForm" (ngSubmit)="onSaveDay(f)" #f>
+<form (ngSubmit)="onSaveDay()" #f>
   <div class="grid-x">
     <div class="cell"><h1>{{day | date:"EEEE, MMMM d yyyy"}}</h1></div>
   </div>
@@ -13,6 +13,11 @@
     <div class="cell small-6">
       <textarea name="comments[{{g.getGrantId()}}]"></textarea>
       {{g.getDayDetails(day).comment}}
+    </div>
+  </div>
+  <div class="grid-x">
+    <div class="cell medium-offset-1">
+      <button type="submit" class="button primary">Save</button>
     </div>
   </div>
 </form>

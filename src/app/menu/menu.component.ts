@@ -3,6 +3,7 @@ import { MenuModel } from '../models/menu.model';
 import { AuthService } from '../shared/auth.service';
 import { User } from '../shared/user';
 import { Subscription } from 'rxjs';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-menu',
@@ -15,7 +16,7 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   menuSubscription: Subscription;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private store: Store<{ menuItems: { items: MenuModel[] } }>) {
     this.menuSubscription = auth.AuthChanged.subscribe((user: User) => {
       this.menuSetup();
     });
@@ -38,6 +39,11 @@ export class MenuComponent implements OnInit, OnDestroy {
           new MenuModel('/timesheet', 'Sheet View', 'is-active', false)
         ]));
       this.menuItems.push(new MenuModel('/leave', 'Leave', 'is-active', false));
+      if (this.auth.getUserName() === 'lede@ncjfcj.org') {
+        this.menuItems.push(new MenuModel('/admin', 'Admin', 'is-active', false, [
+          new MenuModel('/menu', 'Menu Admin', 'is-active', false)
+        ]));
+      }
       this.menuItems.push(new MenuModel(['auth', 'logout'], 'Logout', 'is-active', false));
     } else {
       this.menuItems.push(new MenuModel(['auth', 'login'], 'Login', 'is-active', false));

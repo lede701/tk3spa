@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 
-import { User } from './user.model';
+import { Tk3User } from './user.model';
 import { GrantDetails } from './grantdetails.model';
 import { TimeDetails } from './timedetails.model';
 import { BaseModel } from './base.model';
+import { IUnpack } from './unpack.interface';
 
 @Injectable()
-export class Timesheet extends BaseModel{
+export class Timesheet extends BaseModel implements IUnpack {
+  TYPE: string = "Timesheet";
   id: string;
   u_id: string;
   eSign: boolean;
@@ -26,7 +28,7 @@ export class Timesheet extends BaseModel{
   supervisorSignature: string;
 
   grantDetails: GrantDetails[];
-  user: User;
+  user: Tk3User;
   daysKeyList: Date[];
   daysData: any;
   timesheetHours: number = 0;
@@ -54,8 +56,8 @@ export class Timesheet extends BaseModel{
       case 42957: {
           this.id = '42957';
           this.u_id = '1';
-          this.startDate = new Date("1/1/2021");
-          this.endDate = new Date("1/15/2021");
+          this.startDate = new Date("2021-02-1");
+          this.endDate = new Date("2021-02-15");
           this.tFirstName = "Leland";
           this.tMiddleName = "";
           this.tLastName = "Ede";
@@ -74,7 +76,7 @@ export class Timesheet extends BaseModel{
     this.daysKeyList = [];
 
     // Create start day of time sheet
-    let day = new Date(`${this.startDate.getDate()}/${this.startDate.getMonth() + 1}/${this.startDate.getFullYear()} 10:00 AM`);
+    let day = new Date(`${this.startDate.getFullYear()}-${this.startDate.getMonth() + 1}-${this.startDate.getDate()} 10:00 AM`);
     // Create a break point for runaway loops
     let runLoop = 0;
     let runAwayThreshold = 50;
@@ -124,7 +126,7 @@ export class Timesheet extends BaseModel{
   }
 
   loadUser() {
-    this.user = new User({
+    this.user = new Tk3User({
       id: 1,
       fkid: 32,
       workScheduleId: 1,
@@ -231,5 +233,9 @@ export class Timesheet extends BaseModel{
 
   getGrantList(): GrantDetails[] {
     return this.grantDetails;
+  }
+
+  Unpack(data: any):void {
+
   }
 }

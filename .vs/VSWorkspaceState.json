@@ -3,10 +3,11 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\auth",
+    "\\src\\app\\daysheet\\day-details",
     "\\src\\app\\menu",
-    "\\src\\app\\shared"
+    "\\src\\app\\menu\\store",
+    "\\src\\app\\timesheet\\timesheet-header"
   ],
-  "SelectedNode": "\\src\\app\\menu\\menu.component.ts",
+  "SelectedNode": "\\src\\app\\app.module.ts",
   "PreviewInSolutionExplorer": false
 }

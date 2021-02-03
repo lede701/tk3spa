@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core';
-
-import { ConfigService } from './config.service';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class DataService{
   private serverBasePath: string;
 
-  constructor(private cfgService: ConfigService) {
-    this.serverBasePath = this.cfgService.serviceApi;
+  constructor() {
+    this.serverBasePath = environment.dataServiceApi;
   }
 
   getServerBase(): string {

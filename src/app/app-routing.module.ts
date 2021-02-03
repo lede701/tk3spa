@@ -7,6 +7,8 @@ import { LeaveComponent } from './leave/leave.component';
 import { AuthComponent } from './auth/auth.component';
 import { DaysheetComponent } from './daysheet/daysheet.component';
 import { DayDetailsComponent } from './daysheet/day-details/day-details.component';
+import { NameComponent } from './name/name.component';
+import { MenuListComponent } from './menu/menu-list/menu-list.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -29,7 +31,8 @@ const routes: Routes = [
       { path: ':type', component: AuthComponent }
     ]
   },
-  
+  { path: 'menu', component: MenuListComponent },
+  { path: 'name', component: NameComponent }
 ];
 
 @NgModule({

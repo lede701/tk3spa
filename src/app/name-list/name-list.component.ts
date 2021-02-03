@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user.model';
+import { Tk3User } from '../models/user.model';
 
 @Component({
   selector: 'app-name-list',
@@ -8,7 +8,7 @@ import { User } from '../models/user.model';
 })
 export class NameListComponent implements OnInit {
 
-  names: User[];
+  names: Tk3User[];
 
   constructor() {
     this.names = [];

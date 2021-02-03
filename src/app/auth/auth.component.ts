@@ -64,13 +64,18 @@ export class AuthComponent implements OnInit, OnDestroy {
         authObs = this.authService.Create(username, password)
       }
       authObs.subscribe(authData => {
-        //this.router.navigate(['/']);
-
         let newUser = new User(authData.localId, authData.email, authData.idToken);
+        // Calculate date experation time
+        let expDate = new Date();
+        expDate.setTime(expDate.getTime() + (+authData.expiresIn * 1000));
         newUser.isAuthenticated = true;
+        newUser.tokenExpires = new Date();
+        newUser.refreshToken = authData.refreshToken;
         this.authService.setUser(newUser);
         this.isLoading = false;
-        console.log(newUser);
+        this.router.navigate(['/']).then(() => {
+          window.location.reload();
+        });
       }, error => {
         this.message = error;
         console.log(error);
